@@ -1,0 +1,6 @@
+[submodule "cmd/link-scanner-service"]
+	path = cmd/link-scanner-service
+	url = https://github.com/btoll/link-scanner-service
+[submodule "cmd/weather-service"]
+	path = cmd/weather-service
+	url = https://github.com/btoll/weather-service
