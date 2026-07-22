@@ -1,0 +1,31 @@
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+whitelistObjectNames:
+  - "kafka.server:type=BrokerTopicMetrics,name=*"
+  - "kafka.server:type=ReplicaManager,name=*"
+  - "kafka.controller:type=KafkaController,name=*"
+  - "java.lang:type=Memory"
+  - "java.lang:type=GarbageCollector,name=*"
+rules:
+  - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), topic=(.+), partition=(.*)><value=(.+)>
+    name: kafka_server_$1_$2
+    labels:
+      clientId: "$3"
+      topic: "$4"
+      partition: "$5"
+  - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), brokerHost=(.+), brokerPort=(.+)><value=(.+)>
+    name: kafka_server_$1_$2
+    labels:
+      clientId: "$3"
+      broker: "$4:$5"
+  - pattern: kafka.server<type=(.+), name=(.+)><value=(.+)>
+    name: kafka_server_$1_$2
+    value: "$3"
+  - pattern: kafka.controller<type=(.+), name=(.+)><value=(.+)>
+    name: kafka_controller_$1_$2
+    value: "$3"
+  - pattern: java.lang<type=Memory><HeapMemoryUsage>(.+)
+    name: jvm_heap_$1
+  - pattern: java.lang<type=GarbageCollector, name=(.+)><CollectionCount>
+    name: jvm_gc_collection_count{gc="$1"}
+
