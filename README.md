@@ -13,6 +13,18 @@ $ cd playing-with-kafka
 $ git submodule update --init --recursive
 ```
 
+Dynamically create `podman-compose.yaml` and pass it to `podman-compose`:
+
+```bash
+$ bash scripts/create_compose.sh -p 9092 --id 1 --num 3 | podman-compose -f - up
+```
+
+If you want to create a `podman-compose.yaml` file, simply redirect the output of `create_compose.sh`:
+
+```bash
+$ bash scripts/create_compose.sh -p 9092 --id 1 --num 3 > podman-compose.sh
+```
+
 Weeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
 ## License
